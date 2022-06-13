@@ -1,7 +1,9 @@
 Python api example project
 
 ## Steps to run the api locally
+#### 1. Prerequisites 
 - Ensure [the poetry is installed](https://python-poetry.org/docs/#installation)
+- Install dependencies by running `poetry install`
 - Check venv path of poetry by running `poetry env info` 
 ```
 Virtualenv
@@ -17,11 +19,7 @@ Python:   /usr
 ```
 - Add the virtualenv path to your IDE's Python intepreter path 
 
-#### 2. Install dependencies
-```
-  poetry install
-```
-#### 3. Launch the app (from root folder of project)
+#### 2. Launch the app (from root folder of project)
 ```
   uvicorn src.main:app --reload
 ```
@@ -30,7 +28,7 @@ Python:   /usr
 ```
 
 ## Code formatting
-Save brainpower and let the [Black](https://black.readthedocs.io) does the work. 
+This project uses [Black](https://black.readthedocs.io) does the work. 
 
 Before commiting the code, run the following command:
 
@@ -38,4 +36,4 @@ Before commiting the code, run the following command:
   black ./src
 ```
 
-The source code will be re-formatted by Black's sensible default config
+The source code will be re-formatted by Black's default config
