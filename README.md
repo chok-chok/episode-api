@@ -1,6 +1,7 @@
 Python api example project
 
-## Steps to run the api locally
+## Steps to run the project locally
+
 #### 1. Prerequisites 
 - Ensure [the poetry is installed](https://python-poetry.org/docs/#installation)
 - Install dependencies by running `poetry install`
