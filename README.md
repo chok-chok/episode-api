@@ -28,7 +28,7 @@ Python:   /usr
 ```
 
 ## Code formatting
-This project uses [Black](https://black.readthedocs.io) does the work. 
+This project uses [Black](https://black.readthedocs.io) for code formatting. 
 
 Before commiting the code, run the following command:
 
@@ -36,4 +36,3 @@ Before commiting the code, run the following command:
   black ./src
 ```
 
-The source code will be re-formatted by Black's default config
