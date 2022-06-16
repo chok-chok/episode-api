@@ -19,6 +19,7 @@ OS:       posix
 Python:   /usr
 ```
 - Add the virtualenv path to your IDE's Python intepreter path 
+- Restart the IDE & Terminal to ensure the source code is running on the virtualenv from poetry
 
 #### 2. Launch the app (from root folder of project)
 ```
