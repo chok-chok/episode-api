@@ -1,6 +1,7 @@
 Python api example project
 
-## Steps to run the api locally
+## Steps to run the project locally
+
 #### 1. Prerequisites 
 - Ensure [the poetry is installed](https://python-poetry.org/docs/#installation)
 - Install dependencies by running `poetry install`
@@ -18,6 +19,7 @@ OS:       posix
 Python:   /usr
 ```
 - Add the virtualenv path to your IDE's Python intepreter path 
+- Restart the IDE & Terminal to ensure the source code is running on the virtualenv from poetry
 
 #### 2. Launch the app (from root folder of project)
 ```
