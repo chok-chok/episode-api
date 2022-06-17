@@ -1,7 +1,7 @@
 """ApiInteractor is a class with CRUD logics for REST endpoints. It takes DB-access module as dependency in runtime"""
 
 from uuid import UUID
-from typing import List, Dict, Union
+from typing import List, Union
 
 from domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput
 from infra.storage import EpisodeRepo
