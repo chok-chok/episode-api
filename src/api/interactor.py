@@ -5,7 +5,12 @@ from typing import List, Union
 
 from pydantic import ValidationError
 
-from domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput
+from domain.episode import (
+    Episode,
+    PostEpisodeInput,
+    PostEpisodeOutput,
+    DeleteEpisodeOutput,
+)
 from infra.storage import EpisodeRepo
 
 
@@ -23,8 +28,7 @@ class ApiInteractor:
 
     def execute_get_episode(self, id: str) -> Union[Episode, None]:
         try:
-            parsed_id = _parse_id(id)
-            return self.db_access.read_episode(parsed_id)
+            return self.db_access.read_episode(_parse_id(id))
         except ValueError:
             raise ValueError("Invalid uuid format")
         except Exception as e:
@@ -54,12 +58,11 @@ class ApiInteractor:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
 
-    def execute_del_episode(self, id: UUID) -> Union["Success", "Fail"]:
+    def execute_del_episode(self, id: UUID) -> DeleteEpisodeOutput:
         try:
-            parsed_id = _parse_id(id)
-            return self.db_access.delete_episode(
-                parsed_id
-            )  ##TODO: Handle episode lookup in db-access
+            delete_result = self.db_access.delete_episode(_parse_id(id))
+            output = dict(result=delete_result)
+            return DeleteEpisodeOutput(**output)
         except ValueError:
             raise ValueError("Invalid uuid format")
         except Exception as e:

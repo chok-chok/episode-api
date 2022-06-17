@@ -23,6 +23,10 @@ class PostEpisodeOutput(BaseModel):
     resourceUrl: str
 
 
+class DeleteEpisodeOutput(BaseModel):
+    result: str  # TODO: use Literal type: either Success or Fail (require python >= 3.8)
+
+
 class Episode(BaseModel):
     id: UUID  # uuid version 4
     episodeTitle: str
