@@ -23,8 +23,10 @@ class ApiInteractor:
         try:
             parsed_id = _parse_id(id)
             return self.db_access.read_episode(parsed_id)
-        except ValueError as e:
+        except ValueError:
             raise ValueError("Invalid uuid format")
+        except Exception:
+            raise Exception("Unexpected exception")
 
     def execute_get_episodes(self) -> List[Episode]:
         """Read list of episode from database"""
