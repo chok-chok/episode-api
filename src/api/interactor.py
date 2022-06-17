@@ -25,10 +25,11 @@ class ApiInteractor:
             return self.db_access.read_episode(parsed_id)
         except ValueError:
             raise ValueError("Invalid uuid format")
-        except Exception:
-            raise Exception("Unexpected exception")
+        except:
+            ## TODO: properly handle unexpected exceptions
+            print("Unexpected exceptions")
 
-    def execute_get_episodes(self) -> List[Episode]:
+    def exescute_get_episodes(self) -> List[Episode]:
         """Read list of episode from database"""
         # Retrieve list of episodes with default pagination
         # If there is argument coming in for pagination use take to chop the list

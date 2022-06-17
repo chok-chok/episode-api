@@ -19,7 +19,7 @@ MOCK_EPISODE = {
 
 
 @pytest.fixture
-def mock_get_episode(monkeypatch):
+def mock_episode_response(monkeypatch):
     """Mock response for read_episode methods (of EpisodeRepo class)"""
 
     def mock_read_episode(id: UUID):
@@ -32,5 +32,5 @@ def mock_get_episode(monkeypatch):
 
 
 @pytest.fixture
-def api_interactor(mock_get_episode):
+def api_interactor(mock_episode_response):
     return ApiInteractor(episode_repo)
