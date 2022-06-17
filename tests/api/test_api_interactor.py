@@ -1,9 +1,10 @@
-from pydantic import ValidationError
 import pytest
 
-from .conftest import MOCK_EPISODE
+from pydantic import ValidationError
+from .conftest import MOCK_EPISODE, api_interactor
 from ..helpers import validate_uuid
 
+from src.api.interactor import ApiInteractor
 from src.domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput
 
 NULL_CASE_ID = "9b81efb6-e8a1-11ec-9e1d-eb36b3ac7eF5"
@@ -28,27 +29,31 @@ CREATE_EPISODE_INVALID_INPUT = dict(
 )
 
 # Tests for execute_get_episode method
-def test_get_episode_success_case(api_interactor):
+def test_get_episode_success_case(api_interactor: ApiInteractor):
     """Should return correct episode (instance of Episode)"""
     result = api_interactor.execute_get_episode(MOCK_EPISODE["id"])
     assert result == Episode(**MOCK_EPISODE)
 
 
-def test_get_episode_null_case(api_interactor):
+def test_get_episode_null_case(api_interactor: ApiInteractor):
     """Should return None when episode is not found"""
     result = api_interactor.execute_get_episode(NULL_CASE_ID)
     assert result == None
 
 
-def test_get_episode_invalid_id(api_interactor):
+def test_get_episode_invalid_id(api_interactor: ApiInteractor):
     """Should raise ValueError when the format of id is invalid"""
     with pytest.raises(ValueError) as err_info:
         api_interactor.execute_get_episode(INVALID_ID)
     assert "Invalid uuid format" in str(err_info.value)
 
 
-def test_get_episodes_length():
-    assert 2 == 2
+# Tests for execute_get_episode method
+# TODO: Add more test cases: e.g with pagination
+def test_get_episodes_success(api_interactor: ApiInteractor):
+    """Should return list of episode with correct length"""
+    result = api_interactor.exescute_get_episodes()
+    assert len(result) == 1
 
 
 # Tests for execute_post_episode method

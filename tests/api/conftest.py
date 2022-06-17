@@ -32,6 +32,16 @@ def mock_read_episode_response(monkeypatch):
 
 
 @pytest.fixture
+def mock_read_episodes_response(monkeypatch):
+    """Provide the mock response of read_episodes methods (of EpisodeRepo class)"""
+
+    def mock_read_episodes():
+        return [Episode(**MOCK_EPISODE)]
+
+    monkeypatch.setattr(episode_repo, "read_episodes", mock_read_episodes)
+
+
+@pytest.fixture
 def mock_create_episode_response(monkeypatch):
     """Provide the mock response of create_episode methods (of EpisodeRepo class)"""
 
@@ -58,6 +68,7 @@ def mock_delete_episode_response(monkeypatch):
 @pytest.fixture
 def api_interactor(
     mock_read_episode_response,
+    mock_read_episodes_response,
     mock_create_episode_response,
     mock_delete_episode_response,
 ):
