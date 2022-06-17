@@ -19,8 +19,8 @@ MOCK_EPISODE = {
 
 
 @pytest.fixture
-def mock_episode_response(monkeypatch):
-    """Mock response for read_episode methods (of EpisodeRepo class)"""
+def mock_read_episode_response(monkeypatch):
+    """Provide the mock response of read_episode methods (of EpisodeRepo class)"""
 
     def mock_read_episode(id: UUID):
         if id == UUID(MOCK_EPISODE["id"]):
@@ -32,5 +32,18 @@ def mock_episode_response(monkeypatch):
 
 
 @pytest.fixture
-def api_interactor(mock_episode_response):
+def mock_delete_episode_response(monkeypatch):
+    """Provide the mock response of delete_episode methods (of EpisodeRepo classs)"""
+
+    def mock_delete_episode(id: UUID):
+        if id == UUID(MOCK_EPISODE["id"]):
+            return "Success"
+        else:
+            return "Fail"
+
+    monkeypatch.setattr(episode_repo, "delete_episode", mock_delete_episode)
+
+
+@pytest.fixture
+def api_interactor(mock_read_episode_response, mock_delete_episode_response):
     return ApiInteractor(episode_repo)

@@ -45,9 +45,11 @@ class ApiInteractor:
         pass
 
     def execute_del_episode(self, id: UUID) -> Union["Success", "Fail"]:
-        # Take id to delete the episode
-        # Check if episode exists
-        # Return None if it doesn't
-        # Pass the ID to DB-access
-        # Return success message to caller
-        pass
+        try:
+            parsed_id = _parse_id(id)
+            return self.db_access.delete_episode(parsed_id) ##TODO: Handle episode lookup in db-access
+        except ValueError:
+            raise ValueError("Invalid uuid format")
+        except:
+            ## TODO: properly handle unexpected exceptions
+            print("Unexpected exceptions")
