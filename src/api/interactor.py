@@ -3,6 +3,8 @@
 from uuid import UUID
 from typing import List, Union
 
+from pydantic import ValidationError
+
 from domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput
 from infra.storage import EpisodeRepo
 
@@ -37,19 +39,25 @@ class ApiInteractor:
         pass
 
     def execute_post_episode(self, input: PostEpisodeInput) -> PostEpisodeOutput:
-        # Take payload to create a new episode
-        # (Consider to validate the payload)
-        # Raise exception when the payload is invalid
-        # Pass the payload to db-access
-        # Return the URL to new data
-        pass
+        try:
+            PostEpisodeInput(**input)  # validate the input
+            new_episode = self.db_access.create_episode(input)
+            output = dict(resourceUrl=f"/episodes/{new_episode.id}")
+            return PostEpisodeOutput(**output)
+        except ValidationError as e:
+            raise e
+        except Exception as e:
+            ## TODO: properly handle unexpected exceptions
+            print(f"Unexpected exceptions: {str(e)}")
 
     def execute_del_episode(self, id: UUID) -> Union["Success", "Fail"]:
         try:
             parsed_id = _parse_id(id)
-            return self.db_access.delete_episode(parsed_id) ##TODO: Handle episode lookup in db-access
+            return self.db_access.delete_episode(
+                parsed_id
+            )  ##TODO: Handle episode lookup in db-access
         except ValueError:
             raise ValueError("Invalid uuid format")
-        except:
+        except Exception as e:
             ## TODO: properly handle unexpected exceptions
-            print("Unexpected exceptions")
+            print(f"Unexpected exceptions: {str(e)}")

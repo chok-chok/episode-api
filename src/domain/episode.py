@@ -2,7 +2,7 @@
 This module contains the Pydantic models that define the core data structure (input, output, core models).
 """
 from uuid import UUID
-from typing import List, Dict, Union
+from typing import List
 from pydantic import BaseModel
 
 
@@ -12,7 +12,7 @@ class Person(BaseModel):
 
 class PostEpisodeInput(BaseModel):
     episodeTitle: str
-    postcaseTitle: str
+    podcastTitle: str
     thumbnailUrl: str
     guests: List[Person]
     audioUrl: str
@@ -20,11 +20,11 @@ class PostEpisodeInput(BaseModel):
 
 
 class PostEpisodeOutput(BaseModel):
-    resourceUrl: Union[str, None]
+    resourceUrl: str
 
 
 class Episode(BaseModel):
-    id: UUID
+    id: UUID  # uuid version 4
     episodeTitle: str
     podcastTitle: str
     thumbnailUrl: str
