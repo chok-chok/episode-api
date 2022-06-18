@@ -2,8 +2,8 @@
 
 
 class EpisodeRepo:
-    def __init__(self):
-        pass
+    def __init__(self, db_engine):
+        self.db = db_engine
 
     def read_episode(self):
         pass
