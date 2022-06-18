@@ -1,5 +1,4 @@
 import logging
-import json
 from pydantic import ValidationError
 from fastapi import FastAPI, HTTPException
 
@@ -22,13 +21,17 @@ def get_episode(episode_id: str):
         result = interactor.execute_get_episode(episode_id)
 
         if result is None:
-            raise HTTPException(status_code=404, detail="Episode not found")
+            raise ValueError("Episode not found")
         else:
             return result
     except ValueError as e:
         # TODO: properly format the logging
-        logging.exception(f"Exception occur: {e}")
-        raise HTTPException(status_code=422, detail=str(e))
+        err_msg = str(e)
+        if err_msg == "Episode not found":
+            raise HTTPException(status_code=404, detail=err_msg)
+        else:
+            logging.exception(f"Exception occur: {e}")
+            raise HTTPException(status_code=422, detail=err_msg)
 
 
 @app.post("/episodes/", status_code=201, response_model=PostEpisodeOutput)
