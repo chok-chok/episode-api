@@ -37,7 +37,13 @@ class EpisodeRepo:
 
         TO support pagination as next step
         """
-        pass
+        try:
+            select = self.episode.select()
+            result = self.db.execute(select).fetchall()
+            return result
+        except Exception as e:
+            print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def create_episode(self, input: PostEpisodeInput) -> Episode:
         """
