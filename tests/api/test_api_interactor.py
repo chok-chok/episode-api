@@ -5,7 +5,12 @@ from .conftest import MOCK_EPISODE
 from ..helpers import validate_uuid
 
 from src.api.interactor import ApiInteractor
-from src.domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput, DeleteEpisodeOutput
+from src.domain.episode import (
+    Episode,
+    PostEpisodeInput,
+    PostEpisodeOutput,
+    DeleteEpisodeOutput,
+)
 
 NULL_CASE_ID = "9b81efb6-e8a1-11ec-9e1d-eb36b3ac7eF5"
 INVALID_ID = "e8a1_9b81efb6_11ec_9e13"
@@ -59,9 +64,7 @@ def test_get_episodes_success(api_interactor: ApiInteractor):
 # Tests for execute_post_episode method
 def test_post_episode_success_case(api_interactor: ApiInteractor):
     """Should return resource url as output"""
-    output = api_interactor.execute_post_episode(
-        CREATE_EPISODE_INPUT
-    )
+    output = api_interactor.execute_post_episode(CREATE_EPISODE_INPUT)
     splitted_output = output.resourceUrl.split("/")
     resource_path, resource_id = splitted_output[1], splitted_output[2]
     assert resource_path == "episodes"
