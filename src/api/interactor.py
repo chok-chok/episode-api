@@ -46,9 +46,12 @@ class ApiInteractor:
             # However, decided to keep this validation at interactor
             # To be prepared for different interface besides API framework
             # E.g. command line interface
-            PostEpisodeInput(**input)
+
+            PostEpisodeInput(**input)  # Will throw ValidationError if input is invalid
+
             new_episode = self.db_access.create_episode(input)
             output = dict(resourceUrl=f"/episodes/{new_episode.id}")
+
             return PostEpisodeOutput(**output)
         except ValidationError as e:
             raise e
@@ -76,4 +79,3 @@ class ApiInteractor:
             return result
         except ValueError:
             raise ValueError
-
