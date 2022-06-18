@@ -27,10 +27,8 @@ def test_db_session(test_dataset):
     # Create a new episode table
     episode_schema.create(engine, checkfirst=True)
 
-    # Generate and insert the test dataset
-    ##test_dataset = generate_test_dataset()
-    for data in test_dataset:
-        engine.execute(episode_schema.insert(), data)
+    # Insert the test dataset to test database
+    engine.execute(episode_schema.insert(), test_dataset)
 
     yield engine
 
