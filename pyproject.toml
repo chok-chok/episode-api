@@ -8,6 +8,7 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.7"
 fastapi = "^0.78.0"
 uvicorn = {extras = ["standard"], version = "^0.17.6"}
+SQLAlchemy = "^1.4.37"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
