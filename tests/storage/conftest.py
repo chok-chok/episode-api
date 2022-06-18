@@ -11,7 +11,12 @@ from .helper import generate_test_dataset
 
 
 @pytest.fixture
-def test_db_session():
+def test_dataset():
+    return generate_test_dataset()
+
+
+@pytest.fixture
+def test_db_session(test_dataset):
 
     engine = create_engine("postgresql://postgres:postgres@localhost:5432/testdb")
 
@@ -23,7 +28,7 @@ def test_db_session():
     episode_schema.create(engine, checkfirst=True)
 
     # Generate and insert the test dataset
-    test_dataset = generate_test_dataset()
+    ##test_dataset = generate_test_dataset()
     for data in test_dataset:
         engine.execute(episode_schema.insert(), data)
 
@@ -32,12 +37,12 @@ def test_db_session():
     # Start teardown process
 
     # First, drop the episode table
-    episode_schema.drop(engine, checkfirst=True)
+    # episode_schema.drop(engine, checkfirst=True)
 
     # Second, drop the test database
-    drop_database(engine.url)
+    # drop_database(engine.url)
 
 
 @pytest.fixture()
-def episode_repo(test_db_session):
+def episode_repo(test_db_session, test_dataset):
     return EpisodeRepo(test_db_session)
