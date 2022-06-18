@@ -14,22 +14,14 @@ from domain.episode import (
 from infra.storage import EpisodeRepo
 
 
-def _parse_id(value):
-    try:
-        result = UUID(value)
-        return result
-    except ValueError:
-        raise ValueError
-
-
 class ApiInteractor:
     def __init__(self, db_access: EpisodeRepo):
         self.db_access = db_access
 
     def execute_get_episode(self, id: str) -> Union[Episode, None]:
         try:
-            # TODO: store parsed_id as separate variable
-            return self.db_access.read_episode(_parse_id(id))
+            id = self._get_valid_uuid(id)
+            return self.db_access.read_episode(id)
         except ValueError:
             raise ValueError("Invalid uuid format")
         except Exception as e:
@@ -67,8 +59,8 @@ class ApiInteractor:
 
     def execute_del_episode(self, id: UUID) -> DeleteEpisodeOutput:
         try:
-            # TODO: store parsed_id as separate variable
-            delete_result = self.db_access.delete_episode(_parse_id(id))
+            id = self._get_valid_uuid(id)
+            delete_result = self.db_access.delete_episode(id)
             output = dict(result=delete_result)
             return DeleteEpisodeOutput(**output)
         except ValueError:
@@ -77,3 +69,11 @@ class ApiInteractor:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
             raise e
+
+    def _get_valid_uuid(self, value):
+        try:
+            result = UUID(value)
+            return result
+        except ValueError:
+            raise ValueError
+
