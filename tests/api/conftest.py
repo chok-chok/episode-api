@@ -3,10 +3,12 @@ from uuid import UUID, uuid4
 
 from src.infra.db import engine
 from src.infra.storage import EpisodeRepo
+from src.infra.models import episode_schema
+
 from src.api.interactor import ApiInteractor
 from src.domain.episode import Episode, PostEpisodeInput
 
-episode_repo = EpisodeRepo(engine)
+episode_repo = EpisodeRepo(engine, episode_schema)
 
 MOCK_EPISODE: Episode = dict(
     id="9b81efb6-e8a1-11ec-9e1d-eb36b3ac7ec2",

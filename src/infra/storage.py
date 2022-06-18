@@ -2,19 +2,33 @@
 
 from uuid import UUID
 from typing import List
+from sqlalchemy import sql
 from domain.episode import Episode, PostEpisodeInput
+from infra.models import episode_schema
 
 
 class EpisodeRepo:
-    def __init__(self, db_engine):
+    def __init__(self, db_engine, schema: episode_schema):
         self.db = db_engine
+        self.episode = schema
 
     def read_episode(self, id: UUID) -> Episode:
         """
         Retrieve the record using the given UUID.
         Return Episode object
         """
-        pass
+        try:
+            select = self.episode.select().where(self.episode.c.id == id)
+
+            result = self.db.execute(select).fetchone()
+
+            if result is None:
+                return None
+            else:
+                return Episode(**result)
+        except Exception as e:
+            print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def read_episodes(self) -> List[Episode]:
         """

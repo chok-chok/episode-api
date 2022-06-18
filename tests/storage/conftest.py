@@ -45,4 +45,6 @@ def test_db_session(test_dataset):
 
 @pytest.fixture()
 def episode_repo(test_db_session, test_dataset):
-    return EpisodeRepo(test_db_session)
+    from src.infra.models import episode_schema
+
+    return EpisodeRepo(test_db_session, episode_schema)
