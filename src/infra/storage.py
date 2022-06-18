@@ -40,7 +40,7 @@ class EpisodeRepo:
         try:
             select = self.episode.select()
             result = self.db.execute(select).fetchall()
-            return result  # TODO: seralize to episode list
+            return result
         except Exception as e:
             print(f"Unexpected exceptions: {str(e)}")
             raise e
