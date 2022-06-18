@@ -26,11 +26,13 @@ def get_episode(episode_id: str):
             return result
     except ValueError as e:
         # TODO: properly format the logging
+        logging.exception(f"Exception occur: {e}")
+
         err_msg = str(e)
+
         if err_msg == "Episode not found":
             raise HTTPException(status_code=404, detail=err_msg)
         else:
-            logging.exception(f"Exception occur: {e}")
             raise HTTPException(status_code=422, detail=err_msg)
 
 
@@ -45,12 +47,6 @@ def post_episode(payload: PostEpisodeInput):
 def read_episodes():
     data = api.read_episodes()
     return {"data": data}
-
-
-@app.post("/episodes")
-def create_episode():
-    return {"data": "return a full episode here"}
-
 
 @app.delete("/episodes/{episode_id}")
 def delete_episode(episode_id: int):
