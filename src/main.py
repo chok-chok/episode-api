@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 
-from typing import Union
+from typing import Union, List
 from domain.episode import (
     Episode,
     PostEpisodeInput,
@@ -15,7 +15,12 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"data": "the start of a long journey"}
+    return "root"
+
+
+@app.get("/episodes", status_code=200, response_model=List[Episode])
+def get_episodes():
+    return interactor.exescute_get_episodes()
 
 
 @app.get("/episodes/{episode_id}", status_code=200, response_model=Episode)
@@ -38,11 +43,3 @@ def post_episode(payload: PostEpisodeInput):
 )
 def delete_episode(episode_id: str):
     return interactor.execute_del_episode(episode_id)
-
-
-"""
-@app.get("/episodes")
-def read_episodes():
-    data = api.read_episodes()
-    return {"data": data}
-"""
