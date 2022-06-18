@@ -1,5 +1,3 @@
-import logging
-from pydantic import ValidationError
 from fastapi import FastAPI, HTTPException
 
 from typing import Union
@@ -17,23 +15,10 @@ def read_root():
 
 @app.get("/episodes/{episode_id}", status_code=200, response_model=Episode)
 def get_episode(episode_id: str):
-    try:
-        result = interactor.execute_get_episode(episode_id)
+    result = interactor.execute_get_episode(episode_id)
 
-        if result is None:
-            raise ValueError("Episode not found")
-        else:
-            return result
-    except ValueError as e:
-        # TODO: properly format the logging
-        logging.exception(f"Exception occur: {e}")
-
-        err_msg = str(e)
-
-        if err_msg == "Episode not found":
-            raise HTTPException(status_code=404, detail=err_msg)
-        else:
-            raise HTTPException(status_code=422, detail=err_msg)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Episode not found")
 
 
 @app.post("/episodes/", status_code=201, response_model=PostEpisodeOutput)
