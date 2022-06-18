@@ -3,7 +3,7 @@ This module contains the Pydantic models that define the core data structure (in
 """
 from uuid import UUID
 from typing import List
-from typing_extensions import TypedDict  # TO support new TypeDict
+from typing_extensions import TypedDict, Literal  # TO support new type constructs
 from pydantic import BaseModel
 
 
@@ -24,8 +24,8 @@ class PostEpisodeOutput(BaseModel):
     resourceUrl: str
 
 
-class DeleteEpisodeOutput(BaseModel):  # Am I using this one? if not delete it
-    result: str  # TODO: use Literal type: either Success or Fail (require python >= 3.8)
+class DeleteEpisodeOutput(BaseModel):
+    result: Literal["Success", "Fail"]
 
 
 class Person(BaseModel):
