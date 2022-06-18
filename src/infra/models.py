@@ -4,7 +4,7 @@ from sqlalchemy import MetaData, Table, Column, String, Integer, JSON
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
-from db import engine
+from .db import engine
 
 metadata_obj = MetaData()
 

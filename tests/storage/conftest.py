@@ -25,17 +25,8 @@ def test_db_session():
     # Generate and insert the test dataset
     test_dataset = generate_test_dataset()
     for data in test_dataset:
-        ins = "INSERT INTO episode (id, episodeTitle, podcastTitle, thumbnailUrl, guests, audioUrl, episodeDurationSeconds VALUES (?, ?, ?, ?, ?, ?, ?)"
-        engine.execute(
-            ins,
-            data["id"],
-            data["episodeTitle"],
-            data["podcastTitle"],
-            data["thumbnailUrl"],
-            data["guests"],
-            data["audioUrl"],
-            data["episodeDurationSeconds"],
-        )
+        engine.execute(episode_schema.insert(), data)
+
     yield engine
 
     # Start teardown process
