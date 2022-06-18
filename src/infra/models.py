@@ -4,6 +4,8 @@ from sqlalchemy import MetaData, Table, Column, String, Integer, JSON
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 
+from db import engine
+
 metadata_obj = MetaData()
 
 episode_schema = Table(
@@ -17,3 +19,6 @@ episode_schema = Table(
     Column("audioUrl", String(100), nullable=False),
     Column("episodeDurationSeconds", Integer, nullable=False),
 )
+
+# Create a new table if doens't exist
+episode_schema.create(engine, checkfirst=True)

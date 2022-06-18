@@ -28,6 +28,7 @@ class ApiInteractor:
 
     def execute_get_episode(self, id: str) -> Union[Episode, None]:
         try:
+            # TODO: store parsed_id as separate variable
             return self.db_access.read_episode(_parse_id(id))
         except ValueError:
             raise ValueError("Invalid uuid format")
@@ -60,6 +61,7 @@ class ApiInteractor:
 
     def execute_del_episode(self, id: UUID) -> DeleteEpisodeOutput:
         try:
+            # TODO: store parsed_id as separate variable
             delete_result = self.db_access.delete_episode(_parse_id(id))
             output = dict(result=delete_result)
             return DeleteEpisodeOutput(**output)

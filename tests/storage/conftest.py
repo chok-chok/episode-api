@@ -1,9 +1,52 @@
 import pytest
 
+from sqlalchemy import create_engine
+from sqlalchemy_utils import database_exists, create_database, drop_database
+
 from src.infra.db import engine
+from src.infra.models import episode_schema
 from src.infra.storage import EpisodeRepo
+
+from .helper import generate_test_dataset
 
 
 @pytest.fixture
-def episode_repo():
-    return EpisodeRepo(engine)
+def test_db_session():
+
+    engine = create_engine("postgresql://postgres:postgres@localhost:5432/testdb")
+
+    # Create a test database
+    if not database_exists(engine.url):
+        create_database(engine.url)
+
+    # Create a new episode table
+    episode_schema.create(engine, checkfirst=True)
+
+    # Generate and insert the test dataset
+    test_dataset = generate_test_dataset()
+    for data in test_dataset:
+        ins = "INSERT INTO episode (id, episodeTitle, podcastTitle, thumbnailUrl, guests, audioUrl, episodeDurationSeconds VALUES (?, ?, ?, ?, ?, ?, ?)"
+        engine.execute(
+            ins,
+            data["id"],
+            data["episodeTitle"],
+            data["podcastTitle"],
+            data["thumbnailUrl"],
+            data["guests"],
+            data["audioUrl"],
+            data["episodeDurationSeconds"],
+        )
+    yield engine
+
+    # Start teardown process
+
+    # First, drop the episode table
+    episode_schema.drop(engine, checkfirst=True)
+
+    # Second, drop the test database
+    drop_database(engine.url)
+
+
+@pytest.fixture()
+def episode_repo(test_db_session):
+    return EpisodeRepo(test_db_session)
