@@ -37,10 +37,10 @@ def test_db_session(test_dataset):
     # Start teardown process
 
     # First, drop the episode table
-    # episode_schema.drop(engine, checkfirst=True)
+    episode_schema.drop(engine, checkfirst=True)
 
     # Second, drop the test database
-    # drop_database(engine.url)
+    drop_database(engine.url)
 
 
 @pytest.fixture()
