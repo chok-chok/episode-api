@@ -33,8 +33,6 @@ class ApiInteractor:
         except ValueError:
             raise ValueError("Invalid uuid format")
         except Exception as e:
-            ## TODO: properly handle unexpected exceptions
-            print(f"Unexpected exceptions: {str(e)}")
             raise e
 
     def exescute_get_episodes(self) -> List[Episode]:
