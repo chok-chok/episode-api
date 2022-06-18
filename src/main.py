@@ -1,8 +1,10 @@
 import logging
+import json
+from pydantic import ValidationError
 from fastapi import FastAPI, HTTPException
 
 from typing import Union
-from domain.episode import Episode
+from domain.episode import Episode, PostEpisodeInput, PostEpisodeOutput
 
 from .dependency import interactor
 
@@ -22,11 +24,17 @@ def get_episode(episode_id: str):
         if result is None:
             raise HTTPException(status_code=404, detail="Episode not found")
         else:
-            return {"data": result}
+            return result
     except ValueError as e:
         # TODO: properly format the logging
         logging.exception(f"Exception occur: {e}")
         raise HTTPException(status_code=422, detail=str(e))
+
+
+@app.post("/episodes/", status_code=201, response_model=PostEpisodeOutput)
+def post_episode(payload: PostEpisodeInput):
+    payload = dict(payload)
+    return interactor.execute_post_episode(payload)
 
 
 """

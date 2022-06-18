@@ -49,7 +49,13 @@ class ApiInteractor:
 
     def execute_post_episode(self, input: PostEpisodeInput) -> PostEpisodeOutput:
         try:
-            PostEpisodeInput(**input)  # validate the input
+            # FastAPI layer validate the input at the REST endpoint
+            # Making below line effectively duplicated validation
+
+            # However, decided to keep this validation at interactor
+            # To be prepared for different interface besides API framework
+            # E.g. command line interface
+            PostEpisodeInput(**input)
             new_episode = self.db_access.create_episode(input)
             output = dict(resourceUrl=f"/episodes/{new_episode.id}")
             return PostEpisodeOutput(**output)
