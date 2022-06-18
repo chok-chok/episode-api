@@ -75,4 +75,16 @@ class EpisodeRepo:
 
         Delete the episode and return the result
         """
-        pass
+        try:
+            obj = self.read_episode(id)
+
+            if obj is None:
+                return "Fail"
+
+            delete = self.episode.delete().where(self.episode.c.id == id)
+            self.db.execute(delete)
+
+            return "Success"
+        except Exception as e:
+            print(f"Unexpected exceptions: {str(e)}")
+            raise e
