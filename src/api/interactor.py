@@ -35,6 +35,7 @@ class ApiInteractor:
         except Exception as e:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def exescute_get_episodes(self) -> List[Episode]:
         # TODO: apply pagination
@@ -46,6 +47,7 @@ class ApiInteractor:
         except Exception as e:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def execute_post_episode(self, input: PostEpisodeInput) -> PostEpisodeOutput:
         try:
@@ -58,6 +60,7 @@ class ApiInteractor:
         except Exception as e:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def execute_del_episode(self, id: UUID) -> DeleteEpisodeOutput:
         try:
@@ -70,3 +73,4 @@ class ApiInteractor:
         except Exception as e:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")
+            raise e
