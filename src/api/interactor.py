@@ -39,7 +39,6 @@ class ApiInteractor:
         # TODO: apply pagination
         # Retrieve list of episodes with default pagination
         # If there is argument coming in for pagination use take to chop the list
-        # TODO: (Optionally) consider to apply default sorting
         try:
             return self.db_access.read_episodes()
         except Exception as e:
