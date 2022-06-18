@@ -40,19 +40,34 @@ class EpisodeRepo:
         try:
             select = self.episode.select()
             result = self.db.execute(select).fetchall()
-            return result
+            return result  # TODO: seralize to episode list
         except Exception as e:
             print(f"Unexpected exceptions: {str(e)}")
             raise e
 
     def create_episode(self, input: PostEpisodeInput) -> Episode:
         """
-        Write a new report using the input
-        New UUID4 is created
+        Write a new episode using the input
+        with UUID4 as new id
 
         Return Episode object
         """
-        pass
+        try:
+            from uuid import uuid4
+
+            new_id = uuid4()
+            new_episode_data = dict(id=new_id, **input)
+
+            insert = self.episode.insert()
+            self.db.execute(insert, new_episode_data)
+
+            new_obj = self.read_episode(new_id)
+
+            return new_obj
+
+        except Exception as e:
+            print(f"Unexpected exceptions: {str(e)}")
+            raise e
 
     def delete_episode(self, id: UUID) -> str:
         """
