@@ -1,5 +1,5 @@
 # Local setup
-To setup the development enviornment on local machine, follow the steps described below.
+To set up the development environment on a local machine, follow the steps described below.
 
 ## System requirements
 - OS: tested on `Ubuntu` and `MacOS`, but recommend `Ubuntu 20.04.4 LTS`
@@ -25,11 +25,11 @@ OS:       posix
 Python:   /usr
 ```
 - Copy the venv path from the above output (e.g. `~/.cache/pypoetry/virtualenvs/python-api-example-R7RR5aY2-py3.8`) 
-- Paste it to the Python intepreter path at your IDE
+- Paste it to the Python interpreter path at your IDE
 - (Optionally) restart the terminal in your IDE
 
 ## 3. Launch the app 
-All set! just run the following command from root folder of the project.
+All set! just run the following command from the root folder of the project.
 ```
   uvicorn src.main:app --reload
 ```
@@ -39,17 +39,17 @@ And..
 ```
 ---
 
-# Before commiting a new change:
+# Before committing a new change:
 Please follow these two steps before commiting any new changes.
 
 ## 1. Format the code
 - This project uses [Black](https://black.readthedocs.io) for code formatting. 
-- Before commiting the any change, run ` black ./`
+- Before committing any change, run ` black ./`
 
 ## 2. Run tests
 - This project uses [pytest](https://docs.pytest.org/en/7.1.x/) for unit tests & integration test. 
 - Run `pytest` (this will run all tests in the project)
-- Tests for database access module depends on the testdb setup
-- Therefore, please ensure `postgres` is installed & running locally before running tests
+  - Tests for the DB-access module depend on the testdb setup
+  - Therefore, please ensure `Postgres` is installed & running locally before running tests
 
 
