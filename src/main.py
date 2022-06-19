@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException
+import secrets
+from fastapi import FastAPI, Request, HTTPException, Depends, status
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from typing import Union, List
 from domain.episode import (
@@ -9,8 +11,26 @@ from domain.episode import (
 )
 
 from .dependency import interactor
+from config import config
 
-app = FastAPI()
+
+security = HTTPBasic()
+
+
+def basic_auth(cred: HTTPBasicCredentials = Depends(security)):
+    correct_user = secrets.compare_digest(cred.username, config["BASIC_AUTH_USERNAME"])
+    correct_pwd = secrets.compare_digest(cred.password, config["BASIC_AUTH_PASSWORD"])
+
+    if not (correct_user and correct_pwd):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthroized request",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return cred.username
+
+
+app = FastAPI(dependencies=[Depends(basic_auth)])
 
 
 @app.get("/")
