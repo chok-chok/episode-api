@@ -46,10 +46,10 @@ This project loosely follows the Clean Architecture.
     - `EpisodeRepo`:
         - Database access layer, hide the DB-access related details and provide abstractions
 
-- Core data structures (Pydantic models) are defined at `/domain/episode.py` 
+- Core data structures (Pydantic models) are defined at `/src/domain/episode.py` 
     - Classes in the module are sporadically used for typing & parse the data to object
 
-- Dependencies are injected at `dependency.py`
+- Dependencies are injected at `/src/dependency.py`
 
 ## Test setup
 - `test_interactor.py`: Unit tests for the interactor. DB-access layer is mocked.
