@@ -62,6 +62,6 @@ This project loosely follows the Clean Architecture.
 - Adding CI via Github Action
 - Add test suits for the REST endpoints
 - Polish up the generated SwaggerDocs
-- Add database init script (currently database init is implemented in the codebase - `/src/infra.db.py`)
+- Add database init script (currently database init is implemented in the codebase - `/src/infra/db.py`)
 - Add `alembic` to the project
 
