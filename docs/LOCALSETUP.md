@@ -26,7 +26,7 @@ Python:   /usr
 - Copy the venv path from the above output (e.g. `~/.cache/pypoetry/virtualenvs/python-api-example-R7RR5aY2-py3.8`) 
 - Paste it to the Python interpreter path at your IDE
 - (Optionally) restart the terminal in your IDE
-- Finally install dependencies by running `poetry install`
+- Finally, install dependencies by running `poetry install`
 
 ## 3. Launch the app 
 All set! just run the following command from the root folder of the project.
