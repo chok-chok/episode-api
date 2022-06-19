@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine
-from config import config
+from sqlalchemy_utils import database_exists, create_database
 
-db_user, db_pwd = config["POSTGRES_USERNAME"], config["POSTGRES_PASSWORD"]
+from config import DB_HOST, DB_USER, DB_PWD
 
-engine = create_engine(f"postgresql://{db_user}:{db_pwd}@localhost:5432/episodedb")
+engine = create_engine(f"postgresql://{DB_USER}:{DB_PWD}@{DB_HOST}:5432/episodedb")
+
+if not database_exists(engine.url):
+    create_database(engine.url)
