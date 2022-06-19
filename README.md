@@ -1,10 +1,10 @@
 # episode-api
-Example api implemented as a technical assignment. ([see requirements](./REQUIREMENT.md))
+Example api implemented as a technical assignment. ([see requirements](./docs/REQUIREMENT.md))
 
 ---
 
 ## How to run the project
-For development purpose, please follow the [local setup guide](./SETUP.md) instead.
+For development purpose, please follow the [local setup guide](./docs/LOCALSETUP.md) instead.
 
 ### 0. Install docker & docker-compose
 - This project uses `docker` and `docker-compose`
