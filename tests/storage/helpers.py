@@ -3,7 +3,9 @@ from uuid import uuid4
 
 def generate_test_dataset(size: int = 100):
     """
-    Generate 100 episodes to save in the test database
+    Generate n episodes to save in the test database
+
+    if argument is not given, generate 100 records
     """
     result = []
 
