@@ -23,9 +23,10 @@ This project depends on few runtime variables.
 ### 3. Run the containers
 - `POSTGRES_USER`, `POSTGRES_PASSWORD` env var are required at container runtime
 - Run the following command:
-That username and password should match the ones in `.env` file
 ```
-    POSTGRES_USER=your_pg_usr POSTGRES_PASSWORD=your_pg_pwd docker-compose up
+    # username and password in the command should match the ones in `.env` file
+
+    POSTGRES_USER=your_pg_usr POSTGRES_PASSWORD=your_pg_pwd docker-compose up 
 ```
 
 ### 4. Play with the project
