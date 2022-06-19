@@ -7,16 +7,18 @@ services:
       - 8000:80
     env_file:
       - .env
+    environment:
+      - RUN_DOCKER=True
     depends_on:
       - postgres
   postgres:
     image: postgres:12
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_USER}", "-U", "${POSTGRES_PASSWORD}" ]
       timeout: 45s
       interval: 10s
       retries: 10
     environment:
-      POSTGRES_USER: postgres 
-      POSTGRES_PASSWORD: postgres
+      - POSTGRES_USER 
+      - POSTGRES_PASSWORD
 

@@ -3,7 +3,7 @@ import os
 
 load_dotenv()
 
-DB_HOST = "localhost" if os.environ.get("RUN_LOCAL") else "postgres"
+DB_HOST = "postgres" if os.environ.get("RUN_DOCKER") else "localhost"
 DB_USER = os.environ.get("POSTGRES_USERNAME")
 DB_PWD = os.environ.get("POSTGRES_PASSWORD")
 
