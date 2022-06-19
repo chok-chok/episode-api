@@ -1,5 +1,5 @@
 import secrets
-from fastapi import FastAPI, Request, HTTPException, Depends, status
+from fastapi import FastAPI, Request, HTTPException, Depends
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 from typing import Union, List
@@ -23,7 +23,7 @@ def basic_auth(cred: HTTPBasicCredentials = Depends(security)):
 
     if not (correct_user and correct_pwd):
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=401,
             detail="Unauthroized request",
             headers={"WWW-Authenticate": "Basic"},
         )
@@ -52,7 +52,7 @@ def get_episode(episode_id: str):
     return result
 
 
-@app.post("/episodes/", status_code=201, response_model=PostEpisodeOutput)
+@app.post("/episodes", status_code=201, response_model=PostEpisodeOutput)
 def post_episode(payload: PostEpisodeInput):
     payload = dict(payload)
     return interactor.execute_post_episode(payload)
