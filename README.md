@@ -34,8 +34,8 @@ That username and password should match the ones in `.env` file
 ## Implementation details
 This project loosely follows the Clean Architecture. 
 
-- Important classes of the project are `ApiInteractor` and `EpisodeRepo`:
-    - `ApiInteractor`: 
+- Important classes of the project are `Interactor` and `EpisodeRepo`:
+    - `Interactor`: 
         - Provide CRUD logic to the framework layer, which is currently FAST API
         - If additional interface needs to be added (e.g. CLI), it can just call the instance of ApiInteractor 
     - `EpisodeRepo`:

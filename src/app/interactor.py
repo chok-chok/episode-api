@@ -14,7 +14,7 @@ from domain.episode import (
 from infra.storage import EpisodeRepo
 
 
-class ApiInteractor:
+class Interactor:
     def __init__(self, db_access: EpisodeRepo):
         self.db_access = db_access
 

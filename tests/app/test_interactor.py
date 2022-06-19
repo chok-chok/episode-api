@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from .conftest import MOCK_EPISODE
 from .helpers import validate_uuid
 
-from src.api.interactor import ApiInteractor
+from src.app.interactor import Interactor
 from src.domain.episode import (
     Episode,
     PostEpisodeInput,
@@ -34,64 +34,64 @@ CREATE_EPISODE_INVALID_INPUT = dict(
 )
 
 # Tests for execute_get_episode method
-def test_get_episode_success_case(api_interactor: ApiInteractor):
+def test_get_episode_success_case(interactor: Interactor):
     """Should return correct episode (instance of Episode)"""
-    output = api_interactor.execute_get_episode(MOCK_EPISODE["id"])
+    output = interactor.execute_get_episode(MOCK_EPISODE["id"])
     assert output == Episode(**MOCK_EPISODE)
 
 
-def test_get_episode_null_case(api_interactor: ApiInteractor):
+def test_get_episode_null_case(interactor: Interactor):
     """Should return None when episode is not found"""
-    output = api_interactor.execute_get_episode(NULL_CASE_ID)
+    output = interactor.execute_get_episode(NULL_CASE_ID)
     assert output == None
 
 
-def test_get_episode_invalid_id(api_interactor: ApiInteractor):
+def test_get_episode_invalid_id(interactor: Interactor):
     """Should raise ValueError when the format of id is invalid"""
     with pytest.raises(ValueError) as err_info:
-        api_interactor.execute_get_episode(INVALID_ID)
+        interactor.execute_get_episode(INVALID_ID)
     assert "Invalid uuid format" in str(err_info.value)
 
 
 # Tests for execute_get_episode method
 # TODO: Add more test cases: e.g with pagination
-def test_get_episodes_success(api_interactor: ApiInteractor):
+def test_get_episodes_success(interactor: Interactor):
     """Should return list of episode with correct length"""
-    output = api_interactor.exescute_get_episodes(limit=20, offset=0)
+    output = interactor.exescute_get_episodes(limit=20, offset=0)
     assert len(output) == 1
 
 
 # Tests for execute_post_episode method
-def test_post_episode_success_case(api_interactor: ApiInteractor):
+def test_post_episode_success_case(interactor: Interactor):
     """Should return resource url as output"""
-    output = api_interactor.execute_post_episode(CREATE_EPISODE_INPUT)
+    output = interactor.execute_post_episode(CREATE_EPISODE_INPUT)
     splitted_output = output.resourceUrl.split("/")
     resource_path, resource_id = splitted_output[1], splitted_output[2]
     assert resource_path == "episodes"
     assert validate_uuid(resource_id) == True
 
 
-def test_post_episode_invalid_input(api_interactor: ApiInteractor):
+def test_post_episode_invalid_input(interactor: Interactor):
     """Should raise ValidationError when the input is invalid"""
     with pytest.raises(ValidationError):
-        api_interactor.execute_post_episode(CREATE_EPISODE_INVALID_INPUT)
+        interactor.execute_post_episode(CREATE_EPISODE_INVALID_INPUT)
 
 
 # Tests for execute_del_episode method
-def test_del_episode_success_case(api_interactor: ApiInteractor):
+def test_del_episode_success_case(interactor: Interactor):
     """Should return correct output with Success as result"""
-    output = api_interactor.execute_del_episode(MOCK_EPISODE["id"])
+    output = interactor.execute_del_episode(MOCK_EPISODE["id"])
     assert output.result == "Success"
 
 
-def test_del_episode_null_case(api_interactor: ApiInteractor):
+def test_del_episode_null_case(interactor: Interactor):
     """Should return correct output with Fail as result"""
-    output = api_interactor.execute_del_episode(NULL_CASE_ID)
+    output = interactor.execute_del_episode(NULL_CASE_ID)
     assert output.result == "Fail"
 
 
-def test_del_episode_invalid_id(api_interactor: ApiInteractor):
+def test_del_episode_invalid_id(interactor: Interactor):
     """Should raise ValueError when the format of id is invalid"""
     with pytest.raises(ValueError) as err_info:
-        api_interactor.execute_del_episode(INVALID_ID)
+        interactor.execute_del_episode(INVALID_ID)
     assert "Invalid uuid format" in str(err_info.value)

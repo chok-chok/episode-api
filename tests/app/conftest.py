@@ -5,7 +5,7 @@ from src.infra.db import engine
 from src.infra.storage import EpisodeRepo
 from src.infra.models import episode_schema
 
-from src.api.interactor import ApiInteractor
+from src.app.interactor import Interactor
 from src.domain.episode import Episode, PostEpisodeInput
 
 episode_repo = EpisodeRepo(engine, episode_schema)  # TODO: move this to fixture
@@ -69,10 +69,10 @@ def mock_delete_episode_response(monkeypatch):
 
 
 @pytest.fixture
-def api_interactor(
+def interactor(
     mock_read_episode_response,
     mock_read_episodes_response,
     mock_create_episode_response,
     mock_delete_episode_response,
 ):
-    return ApiInteractor(episode_repo)
+    return Interactor(episode_repo)
