@@ -11,15 +11,15 @@ from domain.episode import (
 )
 
 from .dependency import interactor
-from config import config
+from config import BASIC_AUTH_USER, BASIC_AUTH_PWD
 
 
 security = HTTPBasic()
 
 
 def basic_auth(cred: HTTPBasicCredentials = Depends(security)):
-    correct_user = secrets.compare_digest(cred.username, config["BASIC_AUTH_USERNAME"])
-    correct_pwd = secrets.compare_digest(cred.password, config["BASIC_AUTH_PASSWORD"])
+    correct_user = secrets.compare_digest(cred.username, BASIC_AUTH_USER)
+    correct_pwd = secrets.compare_digest(cred.password, BASIC_AUTH_PWD)
 
     if not (correct_user and correct_pwd):
         raise HTTPException(
