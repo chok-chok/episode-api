@@ -2,7 +2,7 @@ import pytest
 
 from pydantic import ValidationError
 from .conftest import MOCK_EPISODE
-from ..helpers import validate_uuid
+from .helpers import validate_uuid
 
 from src.api.interactor import ApiInteractor
 from src.domain.episode import (
@@ -57,7 +57,7 @@ def test_get_episode_invalid_id(api_interactor: ApiInteractor):
 # TODO: Add more test cases: e.g with pagination
 def test_get_episodes_success(api_interactor: ApiInteractor):
     """Should return list of episode with correct length"""
-    output = api_interactor.exescute_get_episodes()
+    output = api_interactor.exescute_get_episodes(limit=20, offset=0)
     assert len(output) == 1
 
 

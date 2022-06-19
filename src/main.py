@@ -39,8 +39,8 @@ def read_root():
 
 
 @app.get("/episodes", status_code=200, response_model=List[Episode])
-def get_episodes():
-    return interactor.exescute_get_episodes()
+def get_episodes(limit: int = 20, offset: int = 0):
+    return interactor.exescute_get_episodes(limit, offset)
 
 
 @app.get("/episodes/{episode_id}", status_code=200, response_model=Episode)

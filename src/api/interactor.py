@@ -1,4 +1,4 @@
-"""ApiInteractor is a class with CRUD logics for REST endpoints. It takes DB-access module as dependency in runtime"""
+"""ApiInteractor is a class with CRUD logics for REST endpoints. It takes DB-access module as dependency at runtime"""
 
 from uuid import UUID
 from typing import List, Union
@@ -27,12 +27,9 @@ class ApiInteractor:
         except Exception as e:
             raise e
 
-    def exescute_get_episodes(self) -> List[Episode]:
-        # TODO: apply pagination
-        # Retrieve list of episodes with default pagination
-        # If there is argument coming in for pagination use take to chop the list
+    def exescute_get_episodes(self, limit: int = 20, offset: int = 0) -> List[Episode]:
         try:
-            return self.db_access.read_episodes()
+            return self.db_access.read_episodes(limit, offset)
         except Exception as e:
             ## TODO: properly handle unexpected exceptions
             print(f"Unexpected exceptions: {str(e)}")

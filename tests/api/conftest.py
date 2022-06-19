@@ -38,7 +38,7 @@ def mock_read_episode_response(monkeypatch):
 def mock_read_episodes_response(monkeypatch):
     """Provide the mock response of read_episodes methods (of EpisodeRepo class)"""
 
-    def mock_read_episodes():
+    def mock_read_episodes(limit: int, offset: int):
         return [Episode(**MOCK_EPISODE)]
 
     monkeypatch.setattr(episode_repo, "read_episodes", mock_read_episodes)
