@@ -1,5 +1,5 @@
 # episode-api
-Example api implemented as a technical assignment. ([see requirements](./docs/REQUIREMENT.md))
+Example API implemented for a technical assignment. ([see requirements](./docs/REQUIREMENT.md))
 
 ---
 
