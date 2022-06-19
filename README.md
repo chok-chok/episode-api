@@ -12,7 +12,7 @@ For development purpose, please follow the [local setup guide](./docs/LOCALSETUP
 
 
 ### 1. Add the .env file 
-This project depends on the following runtime variables. 
+This project depends on few runtime variables. 
 
 - Create `.env` file in the project root folder
 - Refer to `.env_example` for required values & expected format
