@@ -30,15 +30,16 @@ class EpisodeRepo:
             print(f"Unexpected exceptions: {str(e)}")
             raise e
 
-    def read_episodes(self) -> List[Episode]:
+    def read_episodes(self, limit: int = 20, offset=0) -> List[Episode]:
         """
         Retrieve the records
         Return list of Episode objects
 
-        TO support pagination as next step
+        Default limit and offset value should match FAST API later
+        This is to make the actual behavior consistent with API doc
         """
         try:
-            select = self.episode.select()
+            select = self.episode.select().limit(limit).offset(offset)
             result = self.db.execute(select).fetchall()
             return result
         except Exception as e:

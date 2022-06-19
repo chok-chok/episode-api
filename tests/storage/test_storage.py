@@ -23,14 +23,20 @@ def test_read_episode_null_case(episode_repo: EpisodeRepo, test_dataset):
 # Tests for read_episodes method
 
 
-def test_read_episodes_success(episode_repo: EpisodeRepo, test_dataset):
+def test_read_episodes_success_default(episode_repo: EpisodeRepo, test_dataset):
     """Should return a list of episode with correct length"""
     result = episode_repo.read_episodes()
 
-    assert (len(result)) == len(test_dataset)
-    assert episode_repo.read_episode(test_dataset[0]["id"]) == test_dataset[0]
-    assert episode_repo.read_episode(test_dataset[99]["id"]) == test_dataset[99]
-    assert episode_repo.read_episode(test_dataset[80]["id"]) == test_dataset[80]
+    assert (len(result)) == 20
+    assert result[19]["id"] == test_dataset[19]["id"]
+
+
+def test_read_episodes_success_paginated(episode_repo: EpisodeRepo, test_dataset):
+    """Should return a list of episode with correct length"""
+    result = episode_repo.read_episodes(limit=50, offset=50)
+
+    assert (len(result)) == 50
+    assert result[49]['id'] == test_dataset[99]["id"]
 
 
 # Tests for create_episode method
