@@ -7,6 +7,7 @@ from src.infra.db import engine
 from src.infra.models import episode_schema
 from src.infra.storage import EpisodeRepo
 
+from src.config import config
 from .helper import generate_test_dataset
 
 
@@ -18,7 +19,9 @@ def test_dataset():
 @pytest.fixture
 def test_db_session(test_dataset):
 
-    engine = create_engine("postgresql://postgres:postgres@localhost:5432/testdb")
+    db_user, db_pwd = config["POSTGRES_USERNAME"], config["POSTGRES_PASSWORD"]
+
+    engine = create_engine(f"postgresql://{db_user}:{db_pwd}@localhost:5432/testdb")
 
     # Create a test database
     if not database_exists(engine.url):
