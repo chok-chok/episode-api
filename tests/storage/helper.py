@@ -1,13 +1,13 @@
 from uuid import uuid4
 
 
-def generate_test_dataset():
+def generate_test_dataset(size: int = 100):
     """
     Generate 100 episodes to save in the test database
     """
     result = []
 
-    for n in range(1, 101):
+    for n in range(1, size + 1):
         num_in_str = str(n)
 
         payload = dict(

@@ -3,10 +3,11 @@ This module contains the Pydantic models that define the core data structure (in
 """
 from uuid import UUID
 from typing import List
+from typing_extensions import TypedDict, Literal  # TO support new type constructs
 from pydantic import BaseModel
 
 
-class Person(BaseModel):
+class PersonInput(TypedDict):
     name: str
 
 
@@ -14,7 +15,7 @@ class PostEpisodeInput(BaseModel):
     episodeTitle: str
     podcastTitle: str
     thumbnailUrl: str
-    guests: List[Person]
+    guests: List[PersonInput]
     audioUrl: str
     episodeDurationSeconds: int
 
@@ -24,7 +25,11 @@ class PostEpisodeOutput(BaseModel):
 
 
 class DeleteEpisodeOutput(BaseModel):
-    result: str  # TODO: use Literal type: either Success or Fail (require python >= 3.8)
+    result: Literal["Success", "Fail"]
+
+
+class Person(BaseModel):
+    name: str
 
 
 class Episode(BaseModel):

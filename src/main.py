@@ -1,32 +1,65 @@
-from fastapi import FastAPI
-from typing import Union
+import secrets
+from fastapi import FastAPI, Request, HTTPException, Depends, status
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-from api import api
+from typing import Union, List
+from domain.episode import (
+    Episode,
+    PostEpisodeInput,
+    PostEpisodeOutput,
+    DeleteEpisodeOutput,
+)
 
-app = FastAPI()
+from .dependency import interactor
+from config import config
+
+
+security = HTTPBasic()
+
+
+def basic_auth(cred: HTTPBasicCredentials = Depends(security)):
+    correct_user = secrets.compare_digest(cred.username, config["BASIC_AUTH_USERNAME"])
+    correct_pwd = secrets.compare_digest(cred.password, config["BASIC_AUTH_PASSWORD"])
+
+    if not (correct_user and correct_pwd):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Unauthroized request",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return cred.username
+
+
+app = FastAPI(dependencies=[Depends(basic_auth)])
 
 
 @app.get("/")
 def read_root():
-    return {"data": "the start of a long journey"}
+    return "root"
 
 
-@app.get("/episodes/{episode_id}")
-def read_episode(episode_id: int, q: Union[str, None] = None):
-    return {"episode_id": episode_id, "q": q}
+@app.get("/episodes", status_code=200, response_model=List[Episode])
+def get_episodes():
+    return interactor.exescute_get_episodes()
 
 
-@app.get("/episodes")
-def read_episodes():
-    data = api.read_episodes()
-    return {"data": data}
+@app.get("/episodes/{episode_id}", status_code=200, response_model=Episode)
+def get_episode(episode_id: str):
+    result = interactor.execute_get_episode(episode_id)
+
+    if result is None:
+        raise HTTPException(status_code=404, detail="Episode not found")
+    return result
 
 
-@app.post("/episodes")
-def create_episode():
-    return {"data": "return a full episode here"}
+@app.post("/episodes/", status_code=201, response_model=PostEpisodeOutput)
+def post_episode(payload: PostEpisodeInput):
+    payload = dict(payload)
+    return interactor.execute_post_episode(payload)
 
 
-@app.delete("/episodes/{episode_id}")
-def delete_episode(episode_id: int):
-    return {"data": "return result here"}
+@app.delete(
+    "/episodes/{episode_id}", status_code=200, response_model=DeleteEpisodeOutput
+)
+def delete_episode(episode_id: str):
+    return interactor.execute_del_episode(episode_id)
