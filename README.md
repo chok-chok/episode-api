@@ -56,8 +56,7 @@ This project loosely follows the Clean Architecture.
 - `test_storage.py`: Integration tests, it actually calls `Postgres` to test all DB-access methods. 
 
 ## Deployment consideration
-- If possible, my preference would be to deploy the project as K8S services 
-    - This is due to the limited working knowledge of other platforms
+- My preference would be to deploy the project as K8S services 
 
 ## Further improvement ideas
 - Adding CI via Github Action
