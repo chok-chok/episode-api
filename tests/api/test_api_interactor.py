@@ -2,7 +2,7 @@ import pytest
 
 from pydantic import ValidationError
 from .conftest import MOCK_EPISODE
-from ..helpers import validate_uuid
+from .helpers import validate_uuid
 
 from src.api.interactor import ApiInteractor
 from src.domain.episode import (

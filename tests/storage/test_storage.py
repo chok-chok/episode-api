@@ -36,7 +36,7 @@ def test_read_episodes_success_paginated(episode_repo: EpisodeRepo, test_dataset
     result = episode_repo.read_episodes(limit=50, offset=50)
 
     assert (len(result)) == 50
-    assert result[49]['id'] == test_dataset[99]["id"]
+    assert result[49]["id"] == test_dataset[99]["id"]
 
 
 # Tests for create_episode method

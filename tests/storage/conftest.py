@@ -8,7 +8,7 @@ from src.infra.models import episode_schema
 from src.infra.storage import EpisodeRepo
 
 from src.config import DB_HOST, DB_USER, DB_PWD
-from .helper import generate_test_dataset
+from .helpers import generate_test_dataset
 
 
 @pytest.fixture
