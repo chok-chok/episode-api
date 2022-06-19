@@ -61,6 +61,7 @@ This project loosely follows the Clean Architecture.
 ## Further improvement ideas
 - Adding CI via Github Action
 - Add test suits for the REST endpoints
+- Proper logging
 - Polish up the generated SwaggerDocs
 - Add database init script (currently database init is implemented in the codebase - `/src/infra/db.py`)
 - Add `alembic` to the project
