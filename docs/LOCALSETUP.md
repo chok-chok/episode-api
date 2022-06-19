@@ -10,7 +10,6 @@ To set up the development environment on a local machine, follow the steps descr
 - Follow [the installation guide](https://python-poetry.org/docs/#installation)
 
 ## 2. Install dependencies and setup venv 
-- Install dependencies by running `poetry install`
 - Check venv path of poetry by running `poetry env info` 
 ```
 Virtualenv
@@ -27,6 +26,7 @@ Python:   /usr
 - Copy the venv path from the above output (e.g. `~/.cache/pypoetry/virtualenvs/python-api-example-R7RR5aY2-py3.8`) 
 - Paste it to the Python interpreter path at your IDE
 - (Optionally) restart the terminal in your IDE
+- Finally install dependencies by running `poetry install`
 
 ## 3. Launch the app 
 All set! just run the following command from the root folder of the project.
