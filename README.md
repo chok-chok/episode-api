@@ -4,19 +4,23 @@ Example api implemented as a technical assignment. ([see requirements](./REQUIRE
 ---
 
 ## How to run the project
-- Use `docker-compose` to run the project ([installation of Docker Engine](https://docs.docker.com/engine/install/) is required)
-- For development purpose, please follow the [local setup guide](./SETUP.md)
+For development purpose, please follow the [local setup guide](./SETUP.md) instead.
 
-#### 1. Add the .env file 
+### 0. Install docker & docker-compose
+- This project uses `docker` and `docker-compose`
+- Thus [Installation of Docker Engine](https://docs.docker.com/engine/install/) is required
+
+
+### 1. Add the .env file 
 This project depends on the following runtime variables. 
 
 - Create `.env` file in the project root folder
 - Refer to `.env_example` for required values & expected format
 
-#### 2. Build the docker images
+### 2. Build the docker images
 - Simply run `docker-compose build` from the root folder
 
-#### 3. Run the containers
+### 3. Run the containers
 - `POSTGRES_USER`, `POSTGRES_PASSWORD` env var are required at container runtime
 - Run the following command:
 That username and password should match the ones in `.env` file
@@ -24,7 +28,7 @@ That username and password should match the ones in `.env` file
     POSTGRES_USER=your_pg_usr POSTGRES_PASSWORD=your_pg_pwd docker-compose up
 ```
 
-#### 4. Play with the project
+### 4. Play with the project
 
 - Check the Swagger doc at `http://127.0.0.1:8000/docs`
 - Call the API from your browser or via [Postman](https://www.postman.com/s)
