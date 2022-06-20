@@ -55,8 +55,6 @@ This project loosely follows the Clean Architecture.
 - `test_interactor.py`: Unit tests for the interactor. DB-access layer is mocked.
 - `test_storage.py`: Integration tests, it actually calls `Postgres` to test all DB-access methods. 
 
-## Deployment consideration
-- My preference would be to deploy the project as K8S services 
 
 ## Further improvement ideas
 - Adding CI via Github Action
