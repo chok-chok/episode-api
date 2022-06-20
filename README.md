@@ -45,6 +45,7 @@ This project loosely follows the Clean Architecture.
         - If additional interface needs to be added (e.g. CLI), it can just call the instance of ApiInteractor 
     - `EpisodeRepo`:
         - Database access layer, hide the DB-access related details and provide abstractions
+        - Depends on SQLAlchemy, also injected at runtime (No ORM, using SqlAlchemy core)
 
 - Core data structures (Pydantic models) are defined at `/src/domain/episode.py` 
     - Classes in the module are sporadically used for typing & parse the data to object
