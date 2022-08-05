@@ -42,9 +42,10 @@ This project loosely follows the Clean Architecture.
 - Important classes of the project are `Interactor` and `EpisodeRepo`:
     - `Interactor`: 
         - Provide CRUD logic to the framework layer, which is currently FAST API
-        - If additional interface needs to be added (e.g. CLI), it can just call the instance of ApiInteractor 
+        - If additional interface needs to be added (e.g. CLI), it can just call the instance of Interactor 
     - `EpisodeRepo`:
         - Database access layer, hide the DB-access related details and provide abstractions
+        - Depends on SQLAlchemy, also injected at runtime (No ORM, using SqlAlchemy core)
 
 - Core data structures (Pydantic models) are defined at `/src/domain/episode.py` 
     - Classes in the module are sporadically used for typing & parse the data to object
@@ -55,8 +56,6 @@ This project loosely follows the Clean Architecture.
 - `test_interactor.py`: Unit tests for the interactor. DB-access layer is mocked.
 - `test_storage.py`: Integration tests, it actually calls `Postgres` to test all DB-access methods. 
 
-## Deployment consideration
-- My preference would be to deploy the project as K8S services 
 
 ## Further improvement ideas
 - Adding CI via Github Action

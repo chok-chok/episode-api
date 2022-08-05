@@ -1,4 +1,4 @@
-"""ApiInteractor is a class with CRUD logics for REST endpoints. It takes DB-access module as dependency at runtime"""
+"""Interactor is a class with CRUD logics for REST endpoints. It takes DB-access module as dependency at runtime"""
 
 from uuid import UUID
 from typing import List, Union
