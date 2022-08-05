@@ -1,4 +1,4 @@
-# episode-api
+# restapi-assignment
 Example API implemented for a technical assignment. ([see requirements](./docs/REQUIREMENT.md))
 
 ---
