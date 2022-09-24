@@ -1,10 +1,10 @@
 # restapi-assignment
-Example REST API implemented for a technical assignment. ([see requirements](./docs/REQUIREMENT.md))
+Technical assignment to build the REST API ([see requirements](./docs/REQUIREMENT.md))
 
 ---
 
 ## How to run the project
-For development purpose, please follow the [local setup guide](./docs/LOCALSETUP.md) instead.
+For development purpose, please follow the [local setup guide](./docs/LOCALSETUP.md).
 
 ### 0. Install docker & docker-compose
 - This project uses `docker` and `docker-compose`
