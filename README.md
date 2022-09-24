@@ -58,7 +58,7 @@ This project loosely follows the Clean Architecture.
 
 
 ## Further improvement ideas
-- Adding CI via Github Action
+- Add CI via Github Action
 - Add test suits for the REST endpoints
 - Introduce logging
 - Polish up the generated SwaggerDocs
