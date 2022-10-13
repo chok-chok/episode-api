@@ -1,4 +1,4 @@
-# restapi-assignment
+# assignment-restapi
 Technical assignment to build the REST API ([see requirements](./docs/REQUIREMENT.md))
 
 ---
