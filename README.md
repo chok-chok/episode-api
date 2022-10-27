@@ -1,4 +1,4 @@
-# assignment-restapi
+# assignment-restapi  
 Technical assignment to build the REST API ([see requirements](./docs/REQUIREMENT.md))
 
 ---
@@ -32,7 +32,7 @@ This project depends on few runtime variables.
 ### 4. Play with the project
 
 - Check the Swagger doc at `http://127.0.0.1:8000/docs`
-- Call the API from your browser or via [Postman](https://www.postman.com/s)
+- Call the API from your browser or via the [Postman](https://www.postman.com/s)
 
 ---
 
